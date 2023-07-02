@@ -5,7 +5,7 @@ Vue.use(Vuex);
 
 // var URL = 'http://localhost:5014/';
 // var URL = 'http://192.168.1.5:5014/';
-var URL = 'http://192.168.1.16:5044/';
+var URL = 'http://192.168.1.8:5044/';
 
 
 const store1 = {
@@ -30,6 +30,17 @@ const store1 = {
             MASTER_JENIS_USAHA       : URL + 'api/v1/master_jenis_usaha/',
             MASTER_JENIS_USAHA_LIST  : URL + 'api/v1/master_jenis_usaha_list/',
             MASTER_USAHA             : URL + 'api/v1/master_usaha/',
+
+
+
+
+
+
+            CLIENT_LIST_USAHA             : URL + 'api/v1/client_ListUsaha/',
+
+
+
+
             
         },
       
