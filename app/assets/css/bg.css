@@ -1,0 +1,17 @@
+.coverImage {
+    background-image: url('~/assets/img/bg.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+  }
+
+
+
+  .coverColor {
+    background-color: #E2E2E2;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+  }
+  
+  

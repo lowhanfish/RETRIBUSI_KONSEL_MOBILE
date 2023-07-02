@@ -1,0 +1,121 @@
+.buttonLoginLable{
+  font-family: 'Poppins', Poppins-Regular;
+    color : white;
+    font-weight: bold;
+    font-size: 15px;
+  
+  }
+  .textLabelLogin{
+    font-family: 'Poppins', Poppins-Regular;
+    padding-left: 35px;
+    margin-bottom: -10px;
+    color: white;
+    font-size: 11;
+  }
+
+
+  .DashboardTopItemLabel1{
+    font-family: 'Poppins', Poppins-Regular;
+    font-size: 12;
+    color: white;
+    padding-left: 10;
+   }
+
+   .DashboardDivItemLabel1{
+    font-family: 'Poppins', Poppins-Regular;
+    font-size: 10;
+    color: white;
+    margin-top: -10;
+   }
+  
+   .DashboardDivItemLabel2{
+    font-family: 'Poppins', Poppins-Regular;
+    font-size: 10;
+    color: white;
+    margin-top: -4;
+   }
+
+   .DashboardDivItemLabel1_blue{
+    font-family: 'Poppins', Poppins-Regular;
+    font-size: 10;
+    color: #414141;
+    margin-top: -14;
+   }
+  
+   .DashboardDivItemLabel2_blue{
+    font-family: 'Poppins', Poppins-Regular;
+    font-size: 10;
+    color: #b35c0a;
+    margin-top: -4;
+   }
+
+
+   .labelNotifBlue{
+    font-family: 'Poppins', Poppins-Regular;
+    background-color: #1982C4;
+    color: white;
+    padding : 2 16 2 16;
+    border-radius: 5;
+    font-size: 8;
+   }
+
+   .labelNotifGreen{
+    font-family: 'Poppins', Poppins-Regular;
+      background-color: #27C419;
+      color: white;
+      padding : 2 5 2 5;
+      border-radius: 5;
+      align-items: center;
+      justify-content: center;
+      font-size: 8;
+   }
+
+   .labelNotifOrange{
+    font-family: 'Poppins', Poppins-Regular;
+    background-color: #FBAF00;
+    color: #292929;
+    padding : 2 5 2 5;
+    border-radius: 5;
+    align-items: center;
+    justify-content: center;
+    font-size: 8;
+ }
+
+
+ .flexLabel{
+  font-family: 'Poppins', Poppins-Regular;
+  color: #3a3a3a;
+  font-weight: 500;
+  font-size: 10;
+}
+
+  .flexLabelValue{
+    font-family: 'Poppins', Poppins-Regular;
+    color: #3a3a3a;
+    font-weight: 600;
+    font-size: 11;
+  }
+
+  .notifError{
+    font-family: 'Poppins', Poppins-Regular;
+    color: white;
+  }
+
+  .BtnAddList{
+    color: white;
+    font-size: 10;
+  }
+
+
+  .poppins{
+    font-family: 'Poppins', Poppins-Regular;
+  }
+
+
+  .poppins-bold{
+    font-family: 'Poppins-Bold', Poppins-Bold;
+  }
+
+  .poppins-Medium{
+    font-family: 'Poppins-Medium', Poppins-Medium;
+  }
