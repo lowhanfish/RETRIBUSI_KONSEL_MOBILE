@@ -2,6 +2,7 @@ import VueDevtools from 'nativescript-vue-devtools'
 import Vue from 'nativescript-vue'
 
 import Home from './components/Home'
+
 import Apx from './views/auth/Login'
 import QRBayarRetribusi from './views/QRcode/QRBayarRetribusi'
 import QRProfile from './views/QRcode/QRProfile'
@@ -14,6 +15,8 @@ import Aduan from './views/profile/Aduan'
 import Konfigurasi from './views/profile/Konfigurasi'
 import ListUsaha from './views/profile/ListUsaha'
 import Profile from './views/profile/Profile'
+
+import DetileBerita from './views/berita/Detile'
 
 import router from './router'
 
@@ -43,6 +46,13 @@ Vue.registerElement('BarcodeView', () => require('@nativescript-community/ui-bar
 import QRBayarRetribusi_modalAdd from './views/QRcode/QRBayarRetribusi_modalAdd'
 Vue.component('QRBayarRetribusi_modalAdd', QRBayarRetribusi_modalAdd);
 
+import ListUsahaDetile from './views/profile/ListUsahaDetile'
+Vue.component('ListUsahaDetile', ListUsahaDetile);
+
+import RiwayatRetribusiDetile from './views/riwayat/RiwayatRetribusiDetile'
+Vue.component('RiwayatRetribusiDetile', RiwayatRetribusiDetile);
+
+
 import Headerx from './components/Header.vue'
 Vue.component('Headerx', Headerx);
 
@@ -55,10 +65,7 @@ Vue.use(VueWindowedModal)
 
 
 import { CheckBox } from '@nstudio/nativescript-checkbox';
-Vue.registerElement(
-  'CheckBox',
-  () => CheckBox,
-  {
+Vue.registerElement('CheckBox',() => CheckBox,{
     model: {
       prop: 'checked',
       event: 'checkedChange'
@@ -66,7 +73,8 @@ Vue.registerElement(
   }
 );
 
-
+import { Gif } from "nativescript-gif";
+Vue.registerElement('Gif', () => Gif);
 
 
 

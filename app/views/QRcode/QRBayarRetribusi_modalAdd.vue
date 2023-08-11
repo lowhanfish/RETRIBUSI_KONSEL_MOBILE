@@ -13,33 +13,40 @@
               </FlexboxLayout>
 
               <FlexboxLayout class="flexLableModalNotif">
-                <Label class="lableModalNotif1 poppins">Hy Ilfen, anda akan melakukan transaksi pada Pasar :</Label>
-                <Label class="lableModalNotif2 poppins-bold">PASAR UNIT TINANGGEA</Label>
+                <Label class="lableModalNotif1 poppins" textWrap="true">Hy {{profile.nama}}, anda akan melakukan transaksi pada Pasar :</Label>
+                <Label class="lableModalNotif2 poppins-bold">{{profile.unit_uraian}}</Label>
                 <Label class="lableModalNotif3 poppins">Silahkan cheklist Usaha yang akan anda bayarkan.....</Label>
 
 
-                <FlexboxLayout class="flexModalList" v-for="data in listUsaha" :key="data.id">
+                <FlexboxLayout class="flexModalList" v-for="(data, index) in listUsaha" :key="data.id">
                   
 
                   <FlexboxLayout class="flexModalListLeft">
-                    <Label class="lableflexModalList1 poppins">{{data.uraian}}</Label>
-                    <Label class="lableflexModalList2 poppins">Los Kelas I</Label>
-                    <Label class="lableflexModalList3 poppins">Rp. 15.000</Label>
+                    <Label class="lableflexModalList1 poppins">{{data.master_usaha_uraian}}</Label>
+                    <Label class="lableflexModalList2 poppins">{{data.master_lapak_uraian}}</Label>
+                    <Label class="lableflexModalList3 poppins">Rp. {{data.master_lapak_harga}}</Label>
                   </FlexboxLayout>
 
                   <FlexboxLayout class="flexModalListRight">
-                    <check-box class="flexModalListRightCheck" @checkedChange="getCheck(data)" />
+                    <check-box class="flexModalListRightCheck" @checkedChange="getCheck(index, $event.value)" />
                   </FlexboxLayout>
 
                   <!-- <Label class="lableModalNotif2 poppins-bold">{{isChecked}}</Label> -->
                 </FlexboxLayout>
 
 
-                <Label class="lableModalHeader poppins" marginTop="13">Rp. 35.000</Label>
+                <Label class="lableModalHeader poppins" marginTop="13">Rp. {{ form.nilai }}</Label>
 
-                <Ripple @tap="closeModal()">
+                <Ripple v-if="!loading" @tap="addRetribusi()">
                   <FlexboxLayout class="BtnAdd">
-                    <Label class="BtnAddList poppins-Medium">Tap Untuk Mulai Membayar (Rp.35.000)</Label>
+                    <Label class="BtnAddList poppins-Medium">Tap Untuk Mulai Membayar (Rp.{{ form.nilai }})</Label>
+                  </FlexboxLayout>
+                </Ripple>
+
+
+                <Ripple v-if="loading">
+                  <FlexboxLayout class="BtnAdd">
+                    <ActivityIndicator busy="true" @busyChange="loading" />
                   </FlexboxLayout>
                 </Ripple>
 
@@ -67,29 +74,105 @@
   
   <script>
   
-  
+  import * as AppSettings from '@nativescript/core/application-settings';
   
   
   export default {
+    props:['listUsaha', 'profile'],
     data() {
       return {
         isChecked: false,
-        listUsaha :[
-          {id : 1, uraian : 'Toko Bumi Karya'},
-          {id : 1, uraian : 'Toko Gemilang'},
-        ]
+        form : {
+          nama : '',
+          nik : '',
+          nilai : 0,
+        },
+
+
+        loading : false,
+
+
+
+
+
+        
+
       }
     },
     methods: {
-      closeModal() {
-        this.$modal.close();
+
+
+      addRetribusi: function () {
+
+
+        this.loading = true;
+
+        fetch(this.$store.state.url.CLIENT_QRBAYAR_RETRIBUSI + "addOne", {
+            method: "POST",
+            headers: {
+                "content-type": "application/json",
+                authorization: "kikensbatara " + AppSettings.getString("token")
+            },
+            body: JSON.stringify({
+              listUsaha: this.listUsaha,
+              nilai : this.form.nilai
+            })
+        })
+            .then(res => res.json())
+            .then(res_data => {
+                console.log(res_data);
+                // this.listData = res_data
+                // this.profile.unit_uraian = this.listData[0].uraian
+
+                this.loading = false;
+
+                alert({
+                  title: res_data.jud,
+                  // message: result.text,
+                  message: res_data.ket,
+                  okButtonText: "OK"
+                });
+
+                this.closeModal();
+
+                // this.addDataModal();
+            });
       },
 
-      getCheck(e){
-        console.log(e);
+
+
+      closeModal() {
+        this.$modal.close();
+        this.$router.push('dashboard.index');
+
+      },
+
+      getCheck(i, e){
+        
+        this.listUsaha[i].status = e
+
+        var nilai = 0
+        this.listUsaha.forEach(element => {
+          if (element.status == true) {
+            nilai = nilai + parseFloat(element.master_lapak_harga)
+          }          
+        });
+
+
+        this.form.nilai = nilai
+
+
+
+
       }
 
 
+
+
+    },
+
+
+    mounted () {
 
 
     },
@@ -133,6 +216,7 @@
     .lableModalNotif1{
       color :#7E7E7E;
       font-size: 10;
+      /* flex-wrap: wrap; */
 
     }
     .lableModalNotif2{

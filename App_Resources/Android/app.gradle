@@ -20,6 +20,8 @@ android {
     versionName "1.0.0"
     
     generatedDensities = []
+
+    multiDexEnabled true
     // applicationId = "org.nativescript.plugindemo.barcodescanner"
   }
 

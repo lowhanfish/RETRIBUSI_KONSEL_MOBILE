@@ -92,6 +92,8 @@ import { generateBarCode } from '@nativescript-community/ui-barcodeview';
 // const platform = require("platform")
 // import { screen } from '@nativescript/core/platform';
 
+import * as AppSettings from '@nativescript/core/application-settings';
+
 import {screen} from "@nativescript/core/platform"
 
 const Detail = {
@@ -148,8 +150,19 @@ export default {
   data() {
       return {
         isIOS,
-          QRCODE : '',
-          TextQR : 'Telaso Jarot'
+        QRCODE : '',
+        TextQR : 'Telaso Jarot',
+        form : {
+          master_unit_id : '',
+          nik : '',
+        },
+        profile : {
+          nama : '',
+          unit_uraian : ""
+        },
+        listData:[],
+
+        test_lolo : 'KAMIOOOOOOOOOO'
       };
   },
   methods: {
@@ -163,13 +176,21 @@ export default {
       resultx(evt){
 
         console.log(`onScanResult: ${evt.text} (${evt.format})`);
+        this.form.master_unit_id = evt.text
+        this.getUsaha()
 
-        alert({
-          title: "Informasi Pembayaran",
-          // message: result.text,
-          message: 'Anda Berhasi Melakukan Pembayaran',
-          okButtonText: "OK"
-        });
+
+
+        // console.log('NABULEEEE = ' +this.form.master_unit_id);
+        // this.addDataModal();
+
+
+        // alert({
+        //   title: "Informasi Pembayaran",
+        //   // message: result.text,
+        //   message: 'Anda Berhasi Melakukan Pembayaran',
+        //   okButtonText: "OK"
+        // });
         // barcodescanner.available().then(
         //     function(avail) {
         //       console.log("Available? " + avail);
@@ -177,10 +198,55 @@ export default {
         // );
       },
 
+
+      getUsaha: function () {
+
+        fetch(this.$store.state.url.CLIENT_QRBAYAR_RETRIBUSI + "viewOne", {
+            method: "POST",
+            headers: {
+                "content-type": "application/json",
+                authorization: "kikensbatara " + AppSettings.getString("token")
+            },
+            body: JSON.stringify(this.form)
+        })
+            .then(res => res.json())
+            .then(res_data => {
+                // console.log(res_data);
+                this.listData = res_data
+                this.profile.unit_uraian = this.listData[0].uraian
+
+                this.addDataModal();
+            });
+      },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       addDataModal(){
+
         
         this.$showModal("QRBayarRetribusi_modalAdd", {
-          props: {},
+          props: {
+            listUsaha : this.listData,
+            profile : this.profile
+          },
           fullscreen: false,
           dismissEnabled : false,
           animated: true,
@@ -220,7 +286,7 @@ export default {
           }
         }).then(
             function (result) {
-              console.log("--- scanned: " + result.text);
+              // console.log("--- scanned: " + result.text);
               // Note that this Promise is never invoked when a 'continuousScanCallback' function is provided
               setTimeout(function () {
                 // if this alert doesn't show up please upgrade to {N} 2.4.0+
@@ -230,12 +296,15 @@ export default {
                 //   okButtonText: "OK"
                 // });
 
-                alert({
-                  title: "Informasi Pembayaran",
-                  // message: result.text,
-                  message: 'Anda Berhasi Melakukan Pembayaran',
-                  okButtonText: "OK"
-                });
+                
+
+
+                // alert({
+                //   title: "Informasi Pembayaran",
+                //   // message: result.text,
+                //   message: 'Anda Berhasi Melakukan Pembayaran',
+                //   okButtonText: "OK"
+                // });
 
 
               }, 500);
@@ -251,11 +320,26 @@ export default {
 
 
   mounted () {
+
+    const profile2 = AppSettings.getString("profile")
+    const profile1 = JSON.parse(profile2)
+    const profile = profile1.profile
+
+    console.log(profile);
+
+    this.form.nik = profile.nik
+    this.profile.nama = profile.nama
+
+
+
     // this.$showModal(Detail, { fullscreen: true, props: { id: 14 }});
     // this.$showModal(Detail, { props: { id: 14 }});
-    setTimeout(() => {
-      this.addDataModal();
-    }, 500);
+
+
+
+    // setTimeout(() => {
+    //   this.addDataModal();
+    // }, 500);
   },
 
 };

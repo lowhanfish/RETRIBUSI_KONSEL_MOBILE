@@ -5,7 +5,10 @@ Vue.use(Vuex);
 
 // var URL = 'http://localhost:5014/';
 // var URL = 'http://192.168.1.5:5014/';
-var URL = 'http://192.168.1.8:5044/';
+var URL = 'http://192.168.1.6:5044/';
+
+var URL_WEB = 'http://192.168.1.6:5005/';
+// var URL_WEB = 'https://server-web.konaweselatankab.go.id/';
 
 
 const store1 = {
@@ -14,6 +17,7 @@ const store1 = {
         FCM_TOKEN : 'ccccccccccccc',
         url:{
             URL_APP                  : URL,
+            URL_WEB                  : URL_WEB,
             URL_DASHBOARD            : URL + 'api/v1/dashboard/',
             URL_WILAYAH              : URL + 'api/v1/m_wilayah/',
             M_UNIT_RETRIBUSI         : URL + 'api/v1/m_unit_retribusi/',
@@ -35,8 +39,16 @@ const store1 = {
 
 
 
-
+            CLIENT_PROFILE                : URL + 'api/v1/client_Profile/',
             CLIENT_LIST_USAHA             : URL + 'api/v1/client_ListUsaha/',
+            CLIENT_QRBAYAR_RETRIBUSI      : URL + 'api/v1/client_QRBayarRetribusi/',
+            CLIENT_RIWAYAT_TRANSAKSI      : URL + 'api/v1/client_RiwayatTransaksi/',
+            CLIENT_RIWAYAT_SALDO          : URL + 'api/v1/client_RiwayatSaldo/',
+
+
+
+            CLIENT_WEB_BERITA          : URL_WEB + 'api/v1/web_publish_berita/',
+
 
 
 

@@ -68,8 +68,8 @@ import * as AppSettings from '@nativescript/core/application-settings';
     data() {
       return {
         user:{
-            username    :   'kikensbatara',
-            password    :   'kikenkiken', 
+            username    :   'indra_am',
+            password    :   'indra_am', 
         },
 
         loadingku : false,

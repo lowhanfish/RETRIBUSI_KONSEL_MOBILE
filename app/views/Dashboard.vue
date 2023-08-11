@@ -76,7 +76,7 @@
                             <Ripple class="DashboardDivItem" @tap="routex('Profile.index')">
                               <FlexboxLayout class="DashboardDivItem_blue">
                                 <FlexboxLayout class="DashboardDivItemLogo_blue">
-                                  <Image class="DashboardDivItemIcon" src="~/assets/img/isi_saldo.png" stretch="aspectFit"/>
+                                  <Image class="DashboardDivItemIcon" src="~/assets/img/profile.png" stretch="aspectFit"/>
                                 </FlexboxLayout>
                                 <Label class="DashboardDivItemLabel1_blue">Profil</Label>
                               </FlexboxLayout>
@@ -85,40 +85,56 @@
                             <Ripple class="DashboardDivItem" @tap="routex('ListUsaha.index')">
                               <FlexboxLayout class="DashboardDivItem_blue">
                                 <FlexboxLayout class="DashboardDivItemLogo_blue">
-                                  <Image class="DashboardDivItemIcon" src="~/assets/img/isi_saldo.png" stretch="aspectFit"/>
+                                  <Image class="DashboardDivItemIcon" src="~/assets/img/shop.png" stretch="aspectFit"/>
                                 </FlexboxLayout>
                                 <Label class="DashboardDivItemLabel1_blue">List Usaha</Label>
                               </FlexboxLayout>
                             </Ripple>
-                            <Ripple class="DashboardDivItem" @tap="routex('Aduan.index')">
+                            <Ripple class="DashboardDivItem" @tap="routex('Berita.index')">
                               <FlexboxLayout class="DashboardDivItem_blue">
                                 <FlexboxLayout class="DashboardDivItemLogo_blue">
-                                  <Image class="DashboardDivItemIcon" src="~/assets/img/isi_saldo.png" stretch="aspectFit"/>
+                                  <Image class="DashboardDivItemIcon" src="~/assets/img/news.png" stretch="aspectFit"/>
                                 </FlexboxLayout>
-                                <Label class="DashboardDivItemLabel1_blue">Lapor</Label>
+                                <Label class="DashboardDivItemLabel1_blue">Berita</Label>
                               </FlexboxLayout>
                             </Ripple>
                             <Ripple class="DashboardDivItem" @tap="routex('Konfigurasi.index')">
                               <FlexboxLayout class="DashboardDivItem_blue">
                                 <FlexboxLayout class="DashboardDivItemLogo_blue">
-                                  <Image class="DashboardDivItemIcon" src="~/assets/img/isi_saldo.png" stretch="aspectFit"/>
+                                  <Image class="DashboardDivItemIcon" src="~/assets/img/setting.png" stretch="aspectFit"/>
                                 </FlexboxLayout>
                                 <Label class="DashboardDivItemLabel1_blue">Konfigurasi</Label>
                               </FlexboxLayout>
                             </Ripple>
 
-                           
 
                           </FlexboxLayout>
-                            <Label class="" :text="tester" textWrap="true"/>
-                            <Label class="" :text="stringx" textWrap="true"/>
-                            <Label class="" :text="stringx" textWrap="true"/>
-                            <Label class="" :text="stringx" textWrap="true"/>
-                            <Label class="" :text="stringx" textWrap="true"/>
-                            <Label class="" :text="stringx" textWrap="true"/>
-                            <Label class="" :text="stringx" textWrap="true"/>
-                            <Label class="" :text="stringx" textWrap="true"/>
-                            <Label class="" :text="stringx" textWrap="true"/>
+                          
+                          <FlexboxLayout class="pembatas"></FlexboxLayout>
+                          <FlexboxLayout class="newsFlex" >
+  
+                            <FlexboxLayout v-for="data in listData" :key="data.id" class="flexContentNews">
+                              <FlexboxLayout class="imgNewsFlex">
+                                <Ripple @tap="BeritaDetile(data)">
+                                  <Image class="imgNews" :src="$store.state.url.URL_WEB+'uploads/'+data.foto"/>
+                                </Ripple>
+                              </FlexboxLayout>
+                              <FlexboxLayout class="labelNewsFlex">
+                                <Ripple @tap="BeritaDetile(data)" class="RippleTitleNews">
+                                  <Label class="labelNews1" :textWrap="true">{{data.judul}}</Label>
+                                </Ripple>
+                                <Label class="labelNews2">{{data.createBy}}, {{UMUM.tglConvert(data.createAt).tgl}} ({{UMUM.tglConvert(data.createAt).time}})</Label>
+                              </FlexboxLayout>
+                            </FlexboxLayout>
+                            
+                            <FlexboxLayout class="buttonLainnya">
+                              <Label class="h_buttonLainnya">SELENGKAPNYA</Label>
+                            </FlexboxLayout>
+                            
+                          </FlexboxLayout>
+                          <FlexboxLayout class="pembatas"></FlexboxLayout>
+
+                            
 
                         </StackLayout>
 
@@ -140,13 +156,25 @@
 
 
 import * as AppSettings from '@nativescript/core/application-settings';
-
+import UMUM from "./library/umum";
 
 export default {
     data() {
         return {
-            stringx: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.`,
+            stringx: `Contoh judul informasi terkait retribusi ke-I`,
             tester : AppSettings.getString("token"),
+            unit_kerja : '',
+
+            page_first: 1,
+            page_last: 0,
+            data_batas : 6,
+
+
+            loadingData : true,
+            listData : [],
+
+            UMUM : UMUM,
+
         };
     },
     methods: {
@@ -155,7 +183,42 @@ export default {
         },
         routex(name_route) {
             this.$router.push(name_route);
-        }
+        },
+
+        getView: function () {
+          // console.log(this.$store.state.url.URL_APP+'uploads/');
+          this.loadingData = true
+          fetch(this.$store.state.url.CLIENT_WEB_BERITA + "viewLimit", {
+              method: "POST",
+              headers: {
+                  "content-type": "application/json",
+                  authorization: "kikensbatara " + AppSettings.getString("token")
+              },
+              body: JSON.stringify({
+                  data_ke: this.page_first,
+                  data_batas : this.data_batas,
+                  // unit_kerja : this.unit_kerja
+                })
+          })
+              .then(res => res.json())
+              .then(res_data => {
+                this.listData = res_data
+
+                this.loadingData = false
+
+                console.log('+++++++++++++++++++++++++++++');
+
+                console.log(res_data);
+
+                // this.getViewOne();
+              });
+        },
+
+        BeritaDetile : function(data){
+          this.$router.push('Detile_berita.index', { props: { data: data }});
+        },
+
+
     },
 
 
@@ -165,6 +228,10 @@ export default {
       if (token == null || token == '' || token == undefined) {
         router.push('login.index')
       } else {}
+
+
+
+      this.getView();
 
 
 

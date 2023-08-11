@@ -35,17 +35,26 @@
                           <FlexboxLayout class="dashBoardAtasList">
                             <Label class="flexKetQRLabel">List Usaha anda saat ini</Label>
                           </FlexboxLayout>
+
+                          <FlexboxLayout class="FlexlistPhotoProfile1" v-if="loadingData ==true">
+                            <FlexboxLayout class="FlexlistPhotoProfile1">
+                              <Gif class="PhotoLoading" src="~/assets/img/loading.gif" stretch="aspectFit"/>
+                              <Label class="flexKetQRLabel">LOADING..!!</Label>
+                            </FlexboxLayout>
+                          </FlexboxLayout>
   
                           
-                          <FlexboxLayout class="flexListData" v-for="(data, i) in listData" :key="data.id+i">
+                          <FlexboxLayout v-if="loadingData ==false" class="flexListData" v-for="(data, i) in listData" :key="data.id+i">
                             <FlexboxLayout class="flexListDataItem">
                                 <Label class="flexKetQRLabel">{{data.master_usaha_uraian}}</Label>
                             </FlexboxLayout>
 
-
                             <FlexboxLayout class="flexListDataItem1">
-                                <Label class="labelNotifBlue">Detile</Label>
+                                <Ripple @tap="detileModal(data)" class="">
+                                  <Label class="labelNotifBlue">Detile</Label>
+                                </Ripple>
                             </FlexboxLayout>
+
                             
 
                           </FlexboxLayout>
@@ -76,6 +85,8 @@
             form : {
               nik : '',
             },
+
+            loadingData : true
         };
     },
     methods: {
@@ -84,7 +95,7 @@
         },
 
         getView: function () {
-
+          this.loadingData = true
             fetch(this.$store.state.url.CLIENT_LIST_USAHA + "viewOne", {
                 method: "POST",
                 headers: {
@@ -97,8 +108,30 @@
                 .then(res_data => {
                     // console.log(res_data);
                     this.listData = res_data
+                    this.loadingData = false
                 });
         },
+
+        detileModal(data){
+
+
+          console.log(data);
+
+                  
+          this.$showModal("ListUsahaDetile", {
+            props: {
+              data : data,
+            },
+            fullscreen: false,
+            dismissEnabled : false,
+            animated: true,
+            stretched: false,
+            dimAmount: 0.2 // Sets the alpha of the background dim,
+          })
+
+
+        },
+
       
   
   
@@ -109,7 +142,6 @@
 
       const profile2 = AppSettings.getString("profile")
       const profile1 = JSON.parse(profile2)
-
       const profile = profile1.profile
 
       // console.log(profile.nik);

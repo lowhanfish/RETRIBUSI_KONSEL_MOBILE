@@ -1,0 +1,64 @@
+SELECT 
+users_masyarakat.*,
+master_usaha.uraian as master_usaha_uraian,
+master_usaha.tipe_perizinan as master_usaha_tipe_perizinan,
+master_usaha.nomor_perizinan as master_usaha_nomor_perizinan,
+master_jenis_usaha.uraian as master_jenis_usaha_uraian,
+
+master_lapak.uraian as master_lapak_uraian,
+master_lapak.keterangan as master_lapak_keterangan,
+master_lapak.harga as master_lapak_harga
+
+FROM users_masyarakat
+
+LEFT JOIN master_usaha
+ON users_masyarakat.nik = master_usaha.nik
+
+LEFT JOIN master_lapak
+ON master_lapak.id = master_usaha.id_m_lapak
+
+LEFT JOIN master_jenis_usaha_list
+ON master_usaha.id = master_jenis_usaha_list.id_m_usaha
+
+LEFT JOIN master_jenis_usaha
+ON master_jenis_usaha_list.id_m_jenis_usaha = master_jenis_usaha.id
+
+1. Scannning unit retribusi berdasarkan id pada tabel master_unit [v]
+2. get join tabel master_usaha -> Master_lapak -> master_unit [v]
+3. Tarik data list usaha terkait unit retribusi pada tabel master_usaha berdasarkan master_unit [v]
+4. Sesuaikan nilai retribusi [v]
+5. Kirim ke Backend (list) [v]
+
+4. di backend di panggil dari database nilai retribusi untuk di sesuaikan (Kondisi sesuai atau tidak) berdasarkan id lapak [v]
+5. jika sesuai maka check isi dompet apakah mencukupi atau tidak, jika tidak notifikasi ke retributor [v]
+6. Check apakah di unit pasar dan hari yang bersangkutan retributor sudah membayar retribusi [v]
+7. jika belum maka entry di tabel retribusi_list dan update dompet [v]
+8. Check Saldo Global
+
+
+2.
+SELECT 
+master_unit.*,
+master_lapak.uraian as master_lapak_uraian,
+master_lapak.keterangan as master_lapak_keterangan,
+master_lapak.harga as master_lapak_harga,
+
+master_usaha.uraian as master_usaha_uraian,
+master_usaha.nik as master_usaha_nik,
+master_usaha.tipe_perizinan as master_usaha_tipe_perizinan,
+master_usaha.nomor_perizinan as master_usaha_nomor_perizinan
+
+FROM master_unit
+
+LEFT JOIN master_lapak
+ON master_lapak.id_m_unit = master_unit.id
+
+LEFT JOIN master_usaha
+ON master_usaha.id_m_lapak = master_lapak.id
+
+WHERE master_unit.id = 'w8moq7ioli69ed94' AND master_usaha.nik = '1234'
+
+
+DAY(date)
+MONTH(date1)
+YEAR(date1)

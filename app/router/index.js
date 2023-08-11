@@ -28,7 +28,8 @@ import Konfigurasi from '../views/profile/Konfigurasi'
 import ListUsaha from '../views/profile/ListUsaha'
 import Profile from '../views/profile/Profile'
 
-
+import Berita from '../views/berita/List'
+import Detile_berita from '../views/berita/Detile'
 
 Vue.use(NSVueRouter)
 
@@ -91,6 +92,18 @@ const routes = [
     component: Profile,
     meta: { auth: true }
   },
+
+  {
+    name: 'Berita.index',
+    component: Berita,
+    meta: { auth: true }
+  },
+  {
+    name: 'Detile_berita.index',
+    component: Detile_berita,
+    meta: { auth: true }
+  },
+
 
 
 

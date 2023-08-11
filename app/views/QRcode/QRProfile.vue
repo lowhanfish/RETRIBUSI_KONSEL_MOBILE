@@ -39,7 +39,7 @@
                           </FlexboxLayout>
 
                           <FlexboxLayout class="divQRCODE">
-                            <Label class="DashboardDivItemLabel1_black">Inis sue</Label>
+                            <!-- <Label class="DashboardDivItemLabel1_black">Inis sue</Label> -->
                             <Image class="imageQRCODE" :src="QRCODE" stretch="aspectFit"/>
                           </FlexboxLayout>
                         </StackLayout>
