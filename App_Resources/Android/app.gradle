@@ -13,7 +13,7 @@ android {
 
   defaultConfig {
     minSdkVersion 19
-    // targetSdkVersion 32
+    targetSdkVersion 33
 
     // Version Information
     versionCode 1
@@ -22,7 +22,7 @@ android {
     generatedDensities = []
 
     multiDexEnabled true
-    // applicationId = "org.nativescript.plugindemo.barcodescanner"
+    // applicationId = "com.konaweselatankab.eretribusi"
   }
 
 

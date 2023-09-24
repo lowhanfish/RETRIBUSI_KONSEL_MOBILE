@@ -1,7 +1,7 @@
 import VueDevtools from 'nativescript-vue-devtools'
 import Vue from 'nativescript-vue'
 
-import Home from './components/Home'
+import Dashboard from './views/Dashboard'
 
 import Apx from './views/auth/Login'
 import QRBayarRetribusi from './views/QRcode/QRBayarRetribusi'
@@ -20,6 +20,8 @@ import DetileBerita from './views/berita/Detile'
 
 import router from './router'
 
+
+import './assets/css/animated.css'
 import './assets/css/kiken.css'
 import './assets/css/button.css'
 import './assets/css/bg.css'
@@ -55,6 +57,10 @@ Vue.component('RiwayatRetribusiDetile', RiwayatRetribusiDetile);
 
 import Headerx from './components/Header.vue'
 Vue.component('Headerx', Headerx);
+import HeaderBack from './components/HeaderBack.vue'
+Vue.component('HeaderBack', HeaderBack);
+import ProgresBar from './components/ProgresBar.vue'
+Vue.component('ProgresBar', ProgresBar);
 
 
 import { ModalStack, overrideModalViewMethod, VueWindowedModal } from "nativescript-windowed-modal"

@@ -2,7 +2,7 @@
     <Page actionBarHidden="true" class="coverColor">
         <ScrollView orientation="vertical" class="scrollViewsz">
             <StackLayout width="100%" class="pembungkus">
-              <Headerx />
+              <HeaderBack />
                 <FlexboxLayout class="dashBoardAtas">
 
                 </FlexboxLayout>
@@ -117,7 +117,7 @@
     },
     methods: {
         coba() {
-            console.log("Yeaaah");
+            // console.log("Yeaaah");
         },
 
         viewOne: function () {
@@ -134,7 +134,7 @@
           })
               .then(res => res.json())
               .then(res_data => {
-                  console.log(res_data);
+                  // console.log(res_data);
                   this.listData = res_data
                   // this.profile.unit_uraian = this.listData[0].uraian
                   // this.addDataModal();
@@ -164,7 +164,7 @@
       //   this.doScanWithBackCameraWithFlip()
       // }, 1000);
 
-      console.log(this.data);
+      // console.log(this.data);
       this.viewOne();
     },
   

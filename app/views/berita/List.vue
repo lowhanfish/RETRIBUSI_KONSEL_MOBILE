@@ -3,7 +3,7 @@
         <ScrollView orientation="vertical" class="scrollViewsz">
             <StackLayout width="100%" class="pembungkus">
 
-                <Headerx />
+                <HeaderBack />
   
                 <FlexboxLayout class="dashBoardAtas">
                   <FlexboxLayout class="DashboardDivItem">
@@ -16,7 +16,7 @@
                 </FlexboxLayout>
                 
                 <StackLayout class="dashBoardContent1" >
-                        <ScrollView orientation="vertical">
+                        <ScrollView orientation="vertical" height="100%">
                         <StackLayout width="100%">
   
                             <FlexboxLayout flexDirection="column" class="">
@@ -140,7 +140,9 @@
         },
 
 
-
+        BeritaDetile : function(data){
+          this.$router.push('Detile_berita.index', { props: { data: data }});
+        },
 
         btn_prev : function(){
             if(this.page_first>1){
@@ -173,11 +175,15 @@
   
     mounted () {
 
-      this.getView();
+      // this.getView();
       
       // this.profile.nama = profile.nama
 
     },
+
+    created (){
+      this.getView();
+    }
   
   };
   </script>

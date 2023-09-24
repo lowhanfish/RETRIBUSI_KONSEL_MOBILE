@@ -1,7 +1,7 @@
 <template>
   <Page>
     <ModalStack dismissEnabled="false" class="scrollModal">
-      <ScrollView>
+      <ScrollView height="100%">
         <StackLayout class="coverModal">
           <FlexboxLayout class="coverModalHeader">
             <FlexboxLayout class="flexLabelModalClose" @tap="closeModal()">
@@ -114,7 +114,7 @@ export default {
 
 
   mounted () {
-    console.log(this.data);
+    // console.log(this.data);
 
   },
 

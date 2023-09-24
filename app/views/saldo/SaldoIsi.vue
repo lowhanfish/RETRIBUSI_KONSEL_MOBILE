@@ -3,7 +3,7 @@
         <ScrollView orientation="vertical" class="scrollViewsz">
             <StackLayout width="100%" class="pembungkus">
 
-              <Headerx />
+              <HeaderBack />
                 <!-- <FlexboxLayout class="dashBoardTopBar" width="100%">
                     <FlexboxLayout class="DashboardTopItem">
                       <FlexboxLayout class="DashboardTopImage">
@@ -29,14 +29,13 @@
                 </FlexboxLayout>
                 
                 <StackLayout class="dashBoardContent1" >
-                        <ScrollView orientation="vertical">
+                        <ScrollView orientation="vertical" height="100%">
                         <StackLayout width="100%">
   
                           <FlexboxLayout class="dashBoardAtasList">
                             <Label class="flexKetQRLabel">Saldo anda saat ini</Label>
-                            <Label class="DashboardDivItemLabel1_black">Rp. 10.000</Label>
+                            <Label class="DashboardDivItemLabel1_black">Rp. {{ $store.state.JML_SALDO }}</Label>
                           </FlexboxLayout>
-
 
                           <FlexboxLayout class="FlexlistPhotoProfile1" v-if="loadingData ==true">
                             <FlexboxLayout class="FlexlistPhotoProfile1">
@@ -44,7 +43,6 @@
                               <Label class="flexKetQRLabel">LOADING..!!</Label>
                             </FlexboxLayout>
                           </FlexboxLayout>
-  
                           
                           <FlexboxLayout v-if="loadingData ==false" class="flexListData" v-for="data in listData" :key="data.id">
                             <FlexboxLayout class="flexListDataItem">
@@ -71,15 +69,10 @@
                               </FlexboxLayout>
                             </FlexboxLayout>
                         </StackLayout>
-
   
                         </ScrollView>
-  
-    
-    
                         
                     </StackLayout>
-                    
                 
             </StackLayout>
         </ScrollView>
@@ -160,7 +153,7 @@
           })
               .then(res => res.json())
               .then(res_data => {
-                  console.log(res_data);
+                  // console.log(res_data);
                   this.form.nilai = res_data.total
                   // this.listData = res_data
               });
@@ -169,7 +162,7 @@
         detileModal(data){
 
 
-          console.log(data);
+          // console.log(data);
 
                   
           this.$showModal("RiwayatRetribusiDetile", {
@@ -220,7 +213,7 @@
       const profile1 = JSON.parse(profile2)
       const profile = profile1.profile
 
-      console.log(profile);
+      // console.log(profile);
 
       this.form.nik = profile.nik
 

@@ -1,7 +1,7 @@
 <template>
     <Page>
       <ModalStack dismissEnabled="false" class="scrollModal">
-        <ScrollView>
+        <ScrollView height="100%">
           <StackLayout class="coverModal">
             <FlexboxLayout class="coverModalHeader">
               <FlexboxLayout class="flexLabelModalClose" @tap="closeModal()">
@@ -75,7 +75,7 @@
   <script>
   
   import * as AppSettings from '@nativescript/core/application-settings';
-  
+  import MASTER from "../library/master";
   
   export default {
     props:['listUsaha', 'profile'],
@@ -125,6 +125,7 @@
                 // this.profile.unit_uraian = this.listData[0].uraian
 
                 this.loading = false;
+                MASTER.getSaldo('');
 
                 alert({
                   title: res_data.jud,
@@ -132,6 +133,8 @@
                   message: res_data.ket,
                   okButtonText: "OK"
                 });
+
+
 
                 this.closeModal();
 

@@ -3,7 +3,7 @@
         <ScrollView orientation="vertical" class="scrollViewsz">
             <StackLayout width="100%" class="pembungkus">
 
-              <Headerx />
+              <HeaderBack />
                 <!-- <FlexboxLayout class="dashBoardTopBar" width="100%">
                     <FlexboxLayout class="DashboardTopItem">
                       <FlexboxLayout class="DashboardTopImage">
@@ -28,7 +28,7 @@
                 </FlexboxLayout>
                 
                 <StackLayout class="dashBoardContent1" >
-                    <ScrollView orientation="vertical">
+                    <ScrollView orientation="vertical" height="100%">
                         <StackLayout width="100%">
 
 
@@ -59,9 +59,43 @@
                             <TextField v-model="form.hp" class="inputFieldKu"/>
                           </FlexboxLayout>
 
+                          <FlexboxLayout class="FlexinputField">
+                            <Label class="inputFieldKuLabel">Email</Label>
+                            <TextField v-model="form.email" class="inputFieldKu"/>
+                          </FlexboxLayout>
+
+
+                          <Ripple @tap="updateProfile()" rippleColor="#c8c8c8" ippleDuration="10" class="buttonAdd" backgroundColor="#19608C">
+                            <FlexboxLayout androidElevation="3" alignItems="center" justifyContent="center" flexDirection="column">
+                              <Label class="buttonLoginLable" text="UPDATE PROFILE" textWrap="true" />
+                            </FlexboxLayout>
+                          </Ripple>
+
                           <FlexboxLayout class="FlexbatasBesar" marginTop="14"></FlexboxLayout>
 
+
                           <FlexboxLayout class="FlexinputField">
+                            <Label class="inputFieldKuLabel">Username</Label>
+                            <TextField v-model="form.username" class="inputFieldKu"/>
+                          </FlexboxLayout>
+
+                          <FlexboxLayout class="FlexinputField">
+                            <Label class="inputFieldKuLabel">New Password</Label>
+                            <TextField v-model="form.password" class="inputFieldKu"  :secure ="true"/>
+                          </FlexboxLayout>
+
+                          <FlexboxLayout class="FlexinputField">
+                            <Label class="inputFieldKuLabel">Confirm New Password</Label>
+                            <TextField v-model="confirm_password" class="inputFieldKu" :secure ="true"/>
+                          </FlexboxLayout>
+
+                          <Ripple @tap="updateAuth()" rippleColor="#c8c8c8" ippleDuration="10" class="buttonAdd" backgroundColor="#717171">
+                            <FlexboxLayout androidElevation="3" alignItems="center" justifyContent="center" flexDirection="column">
+                              <Label class="buttonLoginLable" text="UPDATE AUTH" textWrap="true" />
+                            </FlexboxLayout>
+                          </Ripple>
+
+                          <!-- <FlexboxLayout class="FlexinputField">
                             <Label class="inputFieldKuLabel">Provinsi</Label>
                             <TextField v-model="form.prov" class="inputFieldKu"/>
                           </FlexboxLayout>
@@ -80,7 +114,7 @@
                           <FlexboxLayout class="FlexinputField">
                             <Label class="inputFieldKuLabel">Alamat</Label>
                             <TextField v-model="form.alamat" class="inputFieldKuTextArea"/>
-                          </FlexboxLayout>
+                          </FlexboxLayout> -->
                         
 
                         </StackLayout>
@@ -96,6 +130,8 @@
   <script>
   
   import * as AppSettings from '@nativescript/core/application-settings';
+import { alert } from '@nativescript/core';
+import { Dialogs } from "@nativescript/core";
 
 
   
@@ -130,8 +166,14 @@
               editedBy: "",
               nama_kabupaten: "",
               nama_kecamatan: "",
-              nama_des_kel: ""
-            }
+              nama_des_kel: "",
+
+              password : "123456"
+            },
+
+
+            confirm_password : "123456"
+
         };
     },
     methods: {
@@ -151,14 +193,157 @@
           })
               .then(res => res.json())
               .then(res_data => {
-                  console.log(res_data);
-                  this.form = res_data[0]
-                  // this.profile.unit_uraian = this.listData[0].uraian
+                  // console.log(res_data);
+                  var password = this.form.password
+                  this.form = res_data[0];
+                  this.form.password = password
+                   // this.profile.unit_uraian = this.listData[0].uraian
                   // this.addDataModal();
                   this.loadingData = false
               });
 
         },
+
+
+        updateProfile : function(){
+
+
+
+
+          fetch(this.$store.state.url.CLIENT_PROFILE + "editDataMasyarakat", {
+              method: "POST",
+              headers: {
+                  "content-type": "application/json",
+                  authorization: "kikensbatara " + AppSettings.getString("token")
+              },
+              body: JSON.stringify(this.form)
+          })
+              .then(res => res.json())
+              .then(res_data => {
+                Dialogs.action({
+                    title: "SUKSES.!",
+                    message: "Berhasil memperbaharui data Profil anda",
+                    cancelButtonText: "Kembali",
+                }).then(function () {
+                    console.log("Dialog closed!");
+                });
+                  this.viewOne();
+
+              });
+
+              // checkPasswordSame
+
+
+        },
+
+
+        updateAuth : async function(){
+          
+
+          if (this.checkPasswordLength() == true) {
+            
+            if (this.checkPasswordSame() == true) {
+
+              fetch(this.$store.state.url.CLIENT_PROFILE + "editAuthMasyarakat", {
+                  method: "POST",
+                  headers: {
+                      "content-type": "application/json",
+                      authorization: "kikensbatara " + AppSettings.getString("token")
+                  },
+                  body: JSON.stringify(this.form)
+              })
+                  .then(res_data => {
+                    Dialogs.action({
+                        title: "SUKSES.!",
+                        message: "Berhasil memperbaharui data Profil anda",
+                        cancelButtonText: "Kembali",
+                    }).then(function () {
+                        console.log("Dialog closed!");
+                    });
+
+
+                    AppSettings.remove("token");
+                    AppSettings.remove("profile");
+                    this.$router.push('login.index')
+                    // this.viewOne();
+              });
+             
+            }else{
+              console.log("Kesalahan di checkPasswordSame");
+            }
+
+          } else {
+            console.log("Kesalahan di checkPasswordLength");
+          }
+
+        },
+
+
+        
+
+
+        checkPasswordLength(){
+          var usernamex = this.form.username;
+          var passwordx = this.form.password;
+
+
+          // console.log("ASSSSSSSSSSU");
+          // console.log(passwordx);
+
+
+          var usernameLength = usernamex.length;
+          var passwordLength = passwordx.length;
+
+
+          // console.log(usernameLength);
+
+
+          
+          if ( (usernameLength >= 6 && usernameLength <= 12) && (passwordLength >= 6 && passwordLength <= 12) ) {
+
+            // console.log("Benar");
+            return true
+            
+            
+          } else {
+            // console.log("Keliru");
+
+            Dialogs.action({
+                title: "GAGAL.!",
+                message: "Password dan username harus terdiri dari 6 hingga 12 karakter/huruf/angka...",
+                cancelButtonText: "Kembali",
+            }).then(function () {
+                console.log("Dialog closed!");
+            });
+            
+            return false;
+          }
+        },
+
+
+
+        checkPasswordSame(){
+          if (this.form.password == this.confirm_password) {
+            // console.log("Benar1");
+            return true
+          } else {
+            // console.log("Keliru1");
+
+
+            Dialogs.action({
+                title: "GAGAL.!",
+                message: "Password dan confim password harus sama",
+                cancelButtonText: "Kembali",
+            }).then(function () {
+                console.log("Dialog closed!");
+            });
+
+            return false
+
+          }
+        }
+
+
       
   
   
@@ -193,7 +378,7 @@
 
     .inputFieldKu{
       /* background: yellow; */
-      height: 27;
+      height: 35;
       border-radius: 5;
       border-style: solid;
       border-width: 1;

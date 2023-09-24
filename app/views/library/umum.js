@@ -1,3 +1,13 @@
+
+// import store from '../../store/DataStore'
+
+// import * as store from '../../store/DataStore';
+// import { store } from '../../store/DataStore';
+
+// import store from ('../../store/DataStore');
+
+// import { ResponseHandler } from "js-wheel/dist/index";
+
 const tglConvert = (tgl) => {
     var date = new Date(tgl);
     // console.log(date)
@@ -31,7 +41,29 @@ const tglConvert = (tgl) => {
 }
 
 
+const getSaldo = (username) => {
+    var data ='store'
+    console.log(data);
+    // fetch(this.$store.state.url.URL_DOMPET +'cek_saldo' , {
+    //     method: "POST",
+    //     headers: {
+    //         "content-type": "application/json",
+    //         authorization: "kikensbatara " + AppSettings.getString("token")
+    //     },
+    //     body: JSON.stringify({
+    //         user: ''
+    //     })
+    // })
+    //     .then(res => res.json())
+    //     .then(res_data => {
+    //         console.log('+++++++++++++++++++++++++++++');
+    //         console.log(res_data.saldo);
+            
+    //     });
+}
+
+
+
 module.exports = {
     tglConvert          : tglConvert, 
-
 }

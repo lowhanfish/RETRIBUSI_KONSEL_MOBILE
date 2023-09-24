@@ -3,7 +3,7 @@
         <ScrollView orientation="vertical">
             <StackLayout width="100%" class="pembungkus">
 
-              <Headerx />
+              <HeaderBack />
                 <!-- <FlexboxLayout class="dashBoardTopBar" width="100%">
                     <FlexboxLayout class="DashboardTopItem">
                       <FlexboxLayout class="DashboardTopImage">

@@ -3,12 +3,13 @@ import Vue from 'nativescript-vue'
 import Vuex from 'vuex'
 Vue.use(Vuex);
 
-// var URL = 'http://localhost:5014/';
-// var URL = 'http://192.168.1.5:5014/';
-var URL = 'http://192.168.1.6:5044/';
-
-var URL_WEB = 'http://192.168.1.6:5005/';
-// var URL_WEB = 'https://server-web.konaweselatankab.go.id/';
+// var URL = 'http://localhost:5045/';
+// var URL = 'http://192.168.1.5:5045/';
+// var URL = 'http://192.168.1.3:5045/';
+// var URL = 'http://192.168.1.10:5045/';
+var URL = 'https://server-e-retribusi.konaweselatankab.go.id/';
+// var URL_WEB = 'http://192.168.1.3:5005/';
+var URL_WEB = 'https://server-web.konaweselatankab.go.id/';
 
 
 const store1 = {
@@ -35,26 +36,20 @@ const store1 = {
             MASTER_JENIS_USAHA_LIST  : URL + 'api/v1/master_jenis_usaha_list/',
             MASTER_USAHA             : URL + 'api/v1/master_usaha/',
 
-
-
-
-
             CLIENT_PROFILE                : URL + 'api/v1/client_Profile/',
             CLIENT_LIST_USAHA             : URL + 'api/v1/client_ListUsaha/',
             CLIENT_QRBAYAR_RETRIBUSI      : URL + 'api/v1/client_QRBayarRetribusi/',
             CLIENT_RIWAYAT_TRANSAKSI      : URL + 'api/v1/client_RiwayatTransaksi/',
             CLIENT_RIWAYAT_SALDO          : URL + 'api/v1/client_RiwayatSaldo/',
 
-
-
             CLIENT_WEB_BERITA          : URL_WEB + 'api/v1/web_publish_berita/',
 
-
-
-
-
-            
+            URL_CHECK_TOKEN            : URL + 'check_connections',
         },
+
+
+        JML_SALDO : 0,
+        ROUTE_DUMMY : ''
       
     },
     // mutations

@@ -1,8 +1,8 @@
 <template>
   <Page actionBarHidden="true" class="coverColor">
-      <ScrollView orientation="vertical">
+      <ScrollView orientation="vertical" height="100%">
           <StackLayout width="100%" class="pembungkus">
-            <Headerx />
+            <HeaderBack />
               <FlexboxLayout class="dashBoardAtas">
                 <FlexboxLayout class="DashboardDivItem">
                   <FlexboxLayout class="DashboardDivItemLogo">
@@ -14,7 +14,7 @@
               </FlexboxLayout>
               
               <StackLayout class="dashBoardContent" >
-                      <ScrollView orientation="vertical">
+                      <ScrollView orientation="vertical" height="100%">
 
 
 
@@ -175,7 +175,7 @@ export default {
 
       resultx(evt){
 
-        console.log(`onScanResult: ${evt.text} (${evt.format})`);
+        // console.log(`onScanResult: ${evt.text} (${evt.format})`);
         this.form.master_unit_id = evt.text
         this.getUsaha()
 
@@ -325,7 +325,7 @@ export default {
     const profile1 = JSON.parse(profile2)
     const profile = profile1.profile
 
-    console.log(profile);
+    // console.log(profile);
 
     this.form.nik = profile.nik
     this.profile.nama = profile.nama

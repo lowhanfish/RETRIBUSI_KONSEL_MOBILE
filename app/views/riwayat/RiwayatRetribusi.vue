@@ -1,7 +1,7 @@
 <template>
     <Page actionBarHidden="true" class="coverColor">
         <ScrollView orientation="vertical" class="scrollViewsz">
-            <StackLayout width="100%" class="pembungkus">
+            <StackLayout width="100%" class="pembungkus" height="100%">
                 <!-- <FlexboxLayout class="dashBoardTopBar" width="100%">
                     <FlexboxLayout class="DashboardTopItem">
                       <FlexboxLayout class="DashboardTopImage">
@@ -16,7 +16,7 @@
                     </FlexboxLayout>
                 </FlexboxLayout> -->
 
-                <Headerx />
+                <HeaderBack />
   
                 <FlexboxLayout class="dashBoardAtas">
                   <FlexboxLayout class="DashboardDivItem">
@@ -29,7 +29,7 @@
                 </FlexboxLayout>
                 
                 <StackLayout class="dashBoardContent1" >
-                        <ScrollView orientation="vertical">
+                        <ScrollView orientation="vertical" height="100%">
                         <StackLayout width="100%">
   
                           <FlexboxLayout class="dashBoardAtasList">
@@ -167,7 +167,7 @@
           })
               .then(res => res.json())
               .then(res_data => {
-                  console.log(res_data);
+                  // console.log(res_data);
                   this.form.nilai = res_data.total
                   // this.listData = res_data
               });
@@ -227,7 +227,7 @@
       const profile1 = JSON.parse(profile2)
       const profile = profile1.profile
 
-      console.log(profile);
+      // console.log(profile);
 
       this.form.nik = profile.nik
 
