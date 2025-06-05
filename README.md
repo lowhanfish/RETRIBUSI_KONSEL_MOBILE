@@ -1,8 +1,7 @@
 # RETRIBUSI_KONSEL_MOBILE
-Versi Mobile dari aplikasi retribusi online
+Retribution Payment Application for Market Vendors (Mobile Version)
 
 
 ## RETRIBUSI_KONSEL_MOBILE
 
-List Usaha [v]
-Detile List Usaha [!]
+Native Script (Vue)
